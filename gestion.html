@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<style>
+
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box}
+
+
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  font-size: larger;
+}
+
+button:hover {
+  opacity:1;
+}
+
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+.container {
+  margin-right: 400px;
+  margin-left: 400px;
+  margin-top: 100px;
+  background-color: white;
+  border: black;
+  border-radius: 10px;
+  border-style: solid;
+  min-width: 600px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+form {
+  resize: both;
+  overflow: auto;
+}
+
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+</style>
+<body>
+
+<form>
+  <div class="container" style="text-align: center;">
+    <h1 style="text-decoration: underline;">Gestion du contenu</h1>
+    <hr>
+
+
+    <div class="clearfix" style="font-size: large;">
+      Pour ajouter un fichier vidéo : 
+      <input type="file" id="fileLoader" name="files" title="Load File" />
+    </div> 
+<br><br>
+<h3>Ou</h3>
+<br><br>
+
+    <div class="clearfix" style="font-size: large;">
+      Pour ajouter une video via internet (url) : 
+      <input style="text-align: center;" type="text" value="Copier l'url ici">
+      <br><br>
+      <button type="submit" id="envoyer">Envoyer</button>
+    </div> 
+</form>
+
+</body>
+<script src="gestion.js">
+</script> 
+</html>
