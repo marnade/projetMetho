@@ -30,7 +30,7 @@ window.location.href = "form.php";
 }else{
 
 #verifies hash from database with given password
-$query = "SELECT * FROM [dbo].[Gestionnaires] WHERE courriel='{$email}' AND passwd='{$passwd}'";
+$query = "SELECT passwd FROM [dbo].[Gestionnaires] WHERE courriel='{$email}'";
 $resultHash = sqlsrv_query($conn, $query);  
 //echo sqlsrv_fetch_array($result);
 
