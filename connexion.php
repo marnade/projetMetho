@@ -29,27 +29,21 @@ window.location.href = "form.php";
 <?php
 }else{
 
-#searches for email and password in the database
-$query = "SELECT * FROM [dbo].[Gestionnaires] WHERE courriel='{$email}' AND passwd='{$passwd}'";
-$result = sqlsrv_query($conn, $query);  
+#verifies hash from database with given password
+$query = "SELECT UserPassword(SQL table column) FROM [dbo].[Test] WHERE UserEmail(SQL Table column)='{$email}'";
+$resultHash = sqlsrv_query($conn, $query);  
 //echo sqlsrv_fetch_array($result);
 
-#checks if the search was made
-if($result === false){
+#checks if hash was identical (right password)
+if($resultHash === false){
  die( print_r( sqlsrv_errors(), true));
-}
-
-#checks if the search brought some row and if it is one only row
-if(sqlsrv_has_rows($result) != 1){
-   echo "Email/password not found";
-}else{
-  
-while($row = sqlsrv_fetch_array($result)){
-echo $row['courriel'];
-}
+} else {
+   $result = password_verify($password, $resultHash);
+   if($result) {
 #redirects user
-header("Location: gestion.html");
-}
+header("Location: gestion.php");
+      }
+   }
 }
 sqlsrv_close( $conn);
 ?>
