@@ -41,6 +41,10 @@ if($resultHash === false){
    $result = password_verify($password, $resultHash);
    if($result) {
 #redirects user
+session_start();
+while($row = sqlsrv_fetch_array($result)){
+   $_SESSION['id'] = $row['id'];
+   $_SESSION['courriel'] = $row['courriel'];
 header("Location: gestion.php");
       }
    }
