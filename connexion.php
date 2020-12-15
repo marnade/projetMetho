@@ -1,25 +1,25 @@
 ﻿<?php
 
-#includes a database connection
+#information de connection a la base de données
 @ini_set('display_errors', 'on');
-$serverName = "info88.cegepthetford.ca"; //serverName\instanceName
+$serverName = "info88.cegepthetford.ca"; //addresse du serveur
 $connectionInfo = array( "Database"=>"3r3_dev", 
 "UID"=>"dev", "PWD"=>"videoRonald2021*");
 // "61ueNxPCDUoEGuqx");
 $conn = sqlsrv_connect($serverName, $connectionInfo);
 
 //if( $conn ) {
- //echo "Connection established.<br />";
+ //echo "Connexion réussie.<br />";
  //echo "Bienvenue ".$_POST['email'];
 //}else{
- //echo "Connection could not be established.<br />";
+ //echo "Connexion échouée.<br />";
  //die( print_r( sqlsrv_errors(), true));
 
-#catches user/password submitted by html form
+#email et password venant du form
 $email = $_POST['email'];
 $passwd = $_POST['password'];
 
-#checks if the html form is filled
+#vérif si form remplis
 if(empty($_POST['email']) || empty($_POST['password'])){
 ?>
 <script type="text/javascript">
@@ -29,18 +29,17 @@ window.location.href = "form.php";
 <?php
 }else{
 
-#verifies hash from database with given password
+#vérif correspondance hash de la DB avec le mot de passe donné
 $query = "SELECT passwd FROM [dbo].[Gestionnaires] WHERE courriel='{$email}'";
 $resultHash = sqlsrv_query($conn, $query);  
 //echo sqlsrv_fetch_array($result);
 
-#checks if hash was identical (right password)
+#vérif si le hash est identique au mot de passe
 if($resultHash === false){
  die( print_r( sqlsrv_errors(), true));
 } else {
    $result = password_verify($password, $resultHash);
    if($result) {
-#redirects user
 session_start();
 while($row = sqlsrv_fetch_array($result)){
    $_SESSION['id'] = $row['id'];
