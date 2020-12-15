@@ -40,7 +40,8 @@ if($resultHash === false){
 } else {
    $result = password_verify($password, $resultHash);
    if($result) {
-#redirection vers page de gestion
+session_start(); 
+$_SESSION['authentifie'] = true;
 header("Location: gestion.php");
       }
    }
