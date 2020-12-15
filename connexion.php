@@ -40,11 +40,8 @@ if($resultHash === false){
 } else {
    $result = password_verify($password, $resultHash);
    if($result) {
-session_start();
-while($row = sqlsrv_fetch_array($result)){
-   $_SESSION['id'] = $row['id'];
-   $_SESSION['courriel'] = $row['courriel'];
-}
+session_start(); 
+$_SESSION['authentifie'] = true;
 header("Location: gestion.php");
       }
    }
