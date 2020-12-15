@@ -1,25 +1,25 @@
 ﻿<?php
 
-#information de connection a la base de données
+#includes a database connection
 @ini_set('display_errors', 'on');
-$serverName = "info88.cegepthetford.ca"; //addresse du serveur
+$serverName = "info88.cegepthetford.ca"; //serverName\instanceName
 $connectionInfo = array( "Database"=>"3r3_dev", 
 "UID"=>"dev", "PWD"=>"videoRonald2021*");
 // "61ueNxPCDUoEGuqx");
 $conn = sqlsrv_connect($serverName, $connectionInfo);
 
 //if( $conn ) {
- //echo "Connexion réussie.<br />";
+ //echo "Connection established.<br />";
  //echo "Bienvenue ".$_POST['email'];
 //}else{
- //echo "Connexion échouée.<br />";
+ //echo "Connection could not be established.<br />";
  //die( print_r( sqlsrv_errors(), true));
 
-#email et password venant du form
+#catches user/password submitted by html form
 $email = $_POST['email'];
 $passwd = $_POST['password'];
 
-#vérif si form remplis
+#checks if the html form is filled
 if(empty($_POST['email']) || empty($_POST['password'])){
 ?>
 <script type="text/javascript">
@@ -29,21 +29,29 @@ window.location.href = "form.php";
 <?php
 }else{
 
-#vérif correspondance hash de la DB avec le mot de passe donné
+#verifies hash from database with given password
 $query = "SELECT passwd FROM [dbo].[Gestionnaires] WHERE courriel='{$email}'";
-$resultHash = sqlsrv_query($conn, $query);  
-//echo sqlsrv_fetch_array($result);
+$res = sqlsrv_query($conn, $query);  
+while($row = sqlsrv_fetch_object($res)){
 
-#vérif si le hash est identique au mot de passe
-if($resultHash === false){
+              //do somthing 
+              $resultHash = $row->passwd;
+};
+#checks if hash was identical (right password)
+if($resultHash === null){
  die( print_r( sqlsrv_errors(), true));
 } else {
-   $result = password_verify($password, $resultHash);
+   $result = password_verify($passwd, $resultHash);
    if($result) {
-session_start(); 
-$_SESSION['authentifie'] = true;
-header("Location: gestion.php");
+#redirects user
+header("Location: gestion.html");
       }
+   ?>
+<script type="text/javascript">
+alert("Adresse courriel ou mot de passe incorrect!");
+window.location.href = "form.php";
+</script>
+<?php
    }
 }
 sqlsrv_close( $conn);
