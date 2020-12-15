@@ -22,9 +22,6 @@
                                 <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
-<?php
- echo phpversion();
-?>
 
                               <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
                           </div>
