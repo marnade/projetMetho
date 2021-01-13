@@ -38,9 +38,6 @@ while($row = sqlsrv_fetch_object($res)){
               $resultHash = $row->passwd;
 };
 #checks if hash was identical (right password)
-if($resultHash === null){
- die( print_r( sqlsrv_errors(), true));
-} else {
    $result = password_verify($passwd, $resultHash);
    if($result) {
 #redirects user
@@ -54,7 +51,6 @@ alert("Adresse courriel ou mot de passe incorrect!");
 window.location.href = "form.php";
 </script>
 <?php
-   }
 }
 sqlsrv_close( $conn);
 ?>
